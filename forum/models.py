@@ -17,6 +17,12 @@ class Post(models.Model):
     post_text = models.CharField('post_text', max_length=500, blank=False)
     post_date = models.DateTimeField('post_date', default=timezone.now, blank=False)
 
+    def __str__(self):
+        return self.post_title
+
+    def new_posts(self):
+        
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
