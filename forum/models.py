@@ -21,6 +21,7 @@ class Post(models.Model):
         return self.post_title
 
     def new_posts(self):
+        pass
         
 
 
