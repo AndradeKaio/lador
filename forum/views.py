@@ -1,7 +1,6 @@
 from django.http import HttpResponse
-
 from forum.models import Post
-
+from django.template import loader
 
 def index(request):
     return HttpResponse("Hello, World!")
@@ -10,11 +9,24 @@ def index(request):
 # Recently posted
 def news(request):
     latest_posts = Post.objects.order_by('post_date')
-    output = ', '.join([q.post_text for q in latest_posts])
-    return HttpResponse(output)
+    template = loader.get_template('forum/index.html')
+    context = {
+        'lastest_post_list' : latest_posts
+    }
+
+    #output = ', '.join([q.post_text for q in latest_posts])
+    #return HttpResponse(output)
+
+    return HttpResponse(template.render(context, request))
+
+def results(request, post_id):
+    return HttpResponse('Post ', post_id)
 
 
 # Return the hottest post
 # More voted
 def hot(request):
+    pass
+
+def best(request):
     pass
