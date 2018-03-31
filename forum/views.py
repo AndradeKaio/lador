@@ -1,6 +1,8 @@
-from django.http import HttpResponse
 from forum.models import Post
-from django.template import loader
+
+from django.shortcuts import render
+from django.http import Http404
+
 
 def index(request):
     return HttpResponse("Hello, World!")
@@ -9,7 +11,6 @@ def index(request):
 # Recently posted
 def news(request):
     latest_posts = Post.objects.order_by('post_date')
-    template = loader.get_template('forum/index.html')
     context = {
         'lastest_post_list' : latest_posts
     }
@@ -17,11 +18,15 @@ def news(request):
     #output = ', '.join([q.post_text for q in latest_posts])
     #return HttpResponse(output)
 
-    return HttpResponse(template.render(context, request))
+    #return HttpResponse(template.render(context, request))
+    return render(request, 'forum/index.html', context)
 
 def results(request, post_id):
-    response = "This is the post %s"
-    return HttpResponse(response % post_id)
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        raise Http404("Post does not exist!")
+    return render(request, 'forum/results.html', {'post' : post})
 
 
 # Return the hottest post
