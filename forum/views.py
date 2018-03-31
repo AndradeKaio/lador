@@ -20,7 +20,8 @@ def news(request):
     return HttpResponse(template.render(context, request))
 
 def results(request, post_id):
-    return HttpResponse('Post ', post_id)
+    response = "This is the post %s"
+    return HttpResponse(response % post_id)
 
 
 # Return the hottest post

@@ -1,8 +1,8 @@
 {% if lastest_post_list %}
     <p><center>Content of new posts.</center></p>
     <ul>
-    {% for post in latest_post_list %}
-        <li><a href="/polls/{{ post.id }}/">{{ post.post_text }}</a></li>
+    {% for post in lastest_post_list %}
+        <li><a href="/{{ post.id }}/">{{ post.post_title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
